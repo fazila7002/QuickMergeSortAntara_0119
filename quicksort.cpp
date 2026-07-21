@@ -44,3 +44,95 @@ void swap(int x, int y) //membuat prosedur swap dengan parameter x,y bertipe dat
     arr[y] = temp; //mengisi arr index ke y dengan variabel temporary
     mov_count++; //increment variabel mov_count
 }
+
+
+void quicksort(int low, int high) //membuat prosedur quicksort dengan parameter low,high bertipe data integer
+{
+    int temp; //inisialisasi variabel temporary
+    int pivot, i, j; //inisialisasi variabel pivot, i, dan j
+
+    if (low > high) //jika low lebih besar dari high
+    {
+        return; //untuk mengembalikan nilai
+    }
+
+    pivot = arr[low]; //mengisi variabel pivot dengan array index ke low
+    i = low + 1; //mengisi variabel i dengan low + 1
+    j = high; //mengisi variabel j dengan high
+
+    while (i <= j) //looping selama i <= j
+    {
+        //mencari elemnt array yang lebih besar dari pivot
+        while ((arr[i] <= pivot) && (i <= high)) //looping selama arr[i] <= pivot dan i <= high
+        {
+            i++; //increment variabel i
+            cmp_count++; //increment variabel cmp_count
+        }
+
+        cmp_count++; //increment variabel cmp_count
+
+        //mencari elemnt array yang lebih kecil atau sama dengan pivot
+        while ((arr[j] > pivot) && j >= low)
+        {
+            j--; //decrement variabel j
+            cmp_count++; //increment variabel cmp_count
+        }
+
+        cmp_count; //increment variabel cmp_count
+
+        if (i < j) //perintah jika posisi i < j
+        {
+            swap(i, j); //tukar element di index i dengan element di index j
+        }
+    }
+
+    if (low < j) //perintah jika posisi low < j
+    {
+        swap(low, j); //tukar element pivot dengan element di index j
+    }
+
+    quicksort(low, j - 1); //pemanggilan rekursive prosedur q_sort untuk mengurutkan sub array sebelah kiri
+    quicksort(j + 1, high); //pemanggilan rekursive prosedur q_sort untuk mengurutkan sub array sebelah kanan
+}
+
+void output() //pembuatan prosedur output
+{
+    cout << "\n--------------------------" << endl; //display untuk menampilkan keterangan elemnt array yang telah di urutkan
+    cout << "\nInputkan Isi elemnt array" << endl;
+    cout << "\n--------------------------" << endl;
+
+    for (int i = 0; i < n; i++) //loopin untuk menampilkan elemnt array yang telah di urutkan
+    {
+        cout << arr[i] << " ";
+    }
+
+    cout << "\n\njumlah perbandingan : " << cmp_count << endl; //untuk menampilkan jumlah perbandingan didalam algoritma
+    cout << "Jumlah Pergerakan Data : " << mov_count << endl; //untuk menampilkan jumlah pergerakan data
+}
+
+int main()
+{
+    char ch;
+
+    do
+    {
+        input(); //pemanggilan prosedur input
+        quicksort(0, n - 1); //pemanggilan prosedur input
+        output(); //pemanggilan prosedur input
+
+        cout << "\n\nIngin Melanjutkan? (y/t) : "; //pilihan untuk melanjutkan looping atau tidak
+        cin >> ch;
+
+        if (ch == 't' || ch == 'T') //jika masukkan pengguna n atau N maka program berhenti
+        {
+            break;
+        }
+
+        system("pause");
+        system("cls");
+
+    } while (true);
+
+    return 0;
+}
+
